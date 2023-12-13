@@ -22,6 +22,8 @@ public class Producto {
     private boolean personalizable = false;
     private Map<String, List<String>> opcionesPersonalizacion;
 
+    private String tipo;
+
     public String getNombre() {
         return nombre;
     }
@@ -164,6 +166,14 @@ public class Producto {
         this.opcionesPersonalizacion = opcionesPersonalizacion;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public Producto() {}
 
     public Producto (String nombre, int categoriaId, int id, String marca, String modelo, double precioLista){
@@ -174,7 +184,19 @@ public class Producto {
         this.modelo = modelo;
         this.precioLista = precioLista;
     }
-    public Producto(String nombre, String categoria, int categoriaId, int id, String marca, String modelo, String descripcion, Map<String, String> especificaciones, double precioLista, double precioContado, double precioOnline, boolean productOnline, double descuentoOnline, List<Producto> productosRelacionados, boolean personalizable, Map<String, List<String>> opcionesPersonalizacion) {
+
+    public Producto (int id, String nombre, String descripcion, int categoriaId, String marca, String modelo, double precioLista, String tipo){
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.categoriaId = categoriaId;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.precioLista = precioLista;
+        this.tipo= tipo;
+    }
+
+    public Producto(String nombre, String categoria, int categoriaId, int id, String marca, String modelo, String descripcion, Map<String, String> especificaciones, String tipo, double precioLista, double precioContado, double precioOnline, boolean productOnline, double descuentoOnline, List<Producto> productosRelacionados, boolean personalizable, Map<String, List<String>> opcionesPersonalizacion) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.categoriaId = categoriaId;
@@ -183,6 +205,7 @@ public class Producto {
         this.modelo = modelo;
         this.descripcion = descripcion;
         this.especificaciones = especificaciones;
+        this.tipo = tipo;
         this.precioLista = precioLista;
         this.precioContado = precioContado;
         this.precioOnline = precioOnline;
@@ -199,8 +222,8 @@ public class Producto {
         return "Producto{" +
                 "nombre='" + nombre + '\'' +
                 ", categoria='" + categoria + '\'' +
-                ", categoriaId='" + categoriaId + '\'' +
-                ", id='" + id + '\'' +
+                ", categoriaId=" + categoriaId +
+                ", id=" + id +
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
@@ -214,6 +237,7 @@ public class Producto {
                 ", productosRelacionados=" + productosRelacionados +
                 ", personalizable=" + personalizable +
                 ", opcionesPersonalizacion=" + opcionesPersonalizacion +
+                ", tipo='" + tipo + '\'' +
                 '}';
     }
 }
