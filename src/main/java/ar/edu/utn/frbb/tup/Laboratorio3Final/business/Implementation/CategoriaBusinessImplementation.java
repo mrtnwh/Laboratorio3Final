@@ -69,13 +69,13 @@ public class CategoriaBusinessImplementation implements CategoriaBusiness {
     @Override
     public List<Producto> getProductosOrdenadosPorPrecioAsc(AltaCategoriaDto dto, String marca) {
         Categoria c = categoriaDao.getCategoriaPorId(dto.getId());
-        return categoriaDao.getProductosPorPrecioAsc(c);
+        return categoriaDao.getProductosOrdenadosPorPreciosAsc(c);
     }
 
     @Override
     public List<Producto> getProductosOrdenadosPorPrecioDesc(AltaCategoriaDto dto) {
         Categoria c = categoriaDao.getCategoriaPorId(dto.getId());
-        return categoriaDao.getProductosPorPrecioDesc(c);
+        return categoriaDao.getProductosOrdenadosPorPreciosDesc(c);
     }
 
     @Override
