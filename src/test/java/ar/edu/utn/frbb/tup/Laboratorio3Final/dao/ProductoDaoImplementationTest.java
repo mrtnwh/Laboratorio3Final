@@ -12,13 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
+@SpringBootTest
 public class ProductoDaoImplementationTest {
     private Map<String, String> especificaciones = new HashMap<>(){{
         put("Bateria", "4500mAh");
