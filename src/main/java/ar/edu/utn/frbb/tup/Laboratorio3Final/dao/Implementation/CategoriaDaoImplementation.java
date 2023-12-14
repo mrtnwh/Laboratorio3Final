@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Repository
@@ -21,9 +22,22 @@ public class CategoriaDaoImplementation implements CategoriaDao {
         return c;
     }
 
-    public Categoria editar(Categoria c) {
-        //TODO: CRUD EDIT Dao
-        return null;
+    public Categoria editar(Categoria categoriaActualizado) {
+        try{
+            for (Categoria categoria : categorias) {
+                if (categoria.getId() == categoriaActualizado.getId()) {
+                    categoria.setNombre(categoriaActualizado.getNombre());
+                    categoria.setDescripcion(categoriaActualizado.getDescripcion());
+                }
+                System.out.println("Se editó la categoria en memoria correctamente.");
+                return categoria;
+
+            }
+        }catch (NoSuchElementException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return categoriaActualizado;
     }
 
     public boolean eliminar(Categoria c) {
