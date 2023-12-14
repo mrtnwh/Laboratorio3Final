@@ -61,6 +61,7 @@ public class CategoriaDaoImplementation implements CategoriaDao {
     }
 
     public List<Producto> getProductosOrdenadosPorPreciosAsc(Categoria c) {
+        System.out.println("Se encontraron los productos ordenados por precio ascendente.");
         return c.getListaProductos()
                 .stream()
                 .sorted(Comparator.comparingDouble(Producto::getPrecioLista))
@@ -68,6 +69,7 @@ public class CategoriaDaoImplementation implements CategoriaDao {
     }
 
     public List<Producto> getProductosOrdenadosPorPreciosDesc(Categoria c) {
+        System.out.println("Se encontraron los productos ordenados por precio descendente.");
         return c.getListaProductos()
                 .stream()
                 .sorted(Comparator.comparingDouble(Producto::getPrecioLista).reversed())
@@ -76,6 +78,7 @@ public class CategoriaDaoImplementation implements CategoriaDao {
     }
 
     public List<Producto> getProductosPorMarca(Categoria c, String marca) {
+        System.out.println("Se encontraron los productos filtrados por marca.");
         return c.getListaProductos()
                 .stream()
                 .filter(producto -> producto.getMarca().equals(marca))
@@ -84,6 +87,7 @@ public class CategoriaDaoImplementation implements CategoriaDao {
 
     @Override
     public List<Producto> getProductosFiltradosPorPrecios(Categoria categoria, double precioMin, double precioMax) {
+        System.out.println("Se encontraron los productos filtrados por precio.");
         return categoria.getListaProductos()
                 .stream()
                 .filter(producto -> producto.getPrecioLista() >= precioMin && producto.getPrecioLista() <= precioMax)

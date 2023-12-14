@@ -25,6 +25,65 @@ public class CategoriaDaoImplementationTest {
     }
 
     @Test
+    public void test_editar_categoria(){
+        Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
+        categoriaDao.guardar(cat);
+        System.out.println("cat: "+cat);
+
+
+        cat.setNombre("test nombre categoria editado");
+        cat.setDescripcion("test descripcion categoria editado");
+        categoriaDao.editar(cat);
+        System.out.println("cat editada: " + cat);
+
+        Categoria categoria = categoriaDao.getCategoriaPorId(cat.getId());
+        assertEquals("test nombre categoria editado", categoria.getNombre());
+        assertEquals("test descripcion categoria editado", categoria.getDescripcion());
+    }
+
+    @Test
+    public void test_eliminar_categoria(){
+        Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
+
+        categoriaDao.guardar(cat);
+        boolean catEliminada = categoriaDao.eliminar(cat);
+
+        System.out.println("La categoría fue eliminada? " + catEliminada);
+        assertTrue(catEliminada);
+    }
+
+    @Test
+    public void test_get_categoria_por_id(){
+        Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
+        categoriaDao.guardar(cat);
+
+        Categoria categoriaEncontrada = categoriaDao.getCategoriaPorId(cat.getId());
+
+        assertNotNull(categoriaEncontrada);
+        assertEquals(cat, categoriaEncontrada);
+    }
+
+    @Test
+    public void test_get_productos_por_marca(){
+        Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
+        Producto producto = new Producto("test nombre producto 1", 1, 1, "Xbox", "S", 1250);
+        Producto producto2 = new Producto("test nombre producto 2", 2, 2,"Playstation", "PS4", 6000);
+        Producto producto3 = new Producto("test nombre producto 3", 3, 3,"Motorola", "XT2014", 5500);
+        cat.agregarProducto(producto);
+        cat.agregarProducto(producto2);
+        cat.agregarProducto(producto3);
+        categoriaDao.guardar(cat);
+        System.out.println("cat: " + cat);
+
+        List<Producto> lista = categoriaDao.getProductosPorMarca(cat, "Playstation");
+
+        assertNotNull(lista);
+        assertFalse(lista.isEmpty());
+        assertTrue(lista.stream().allMatch(p -> p.getMarca().equalsIgnoreCase("Playstation")));
+
+    }
+
+    @Test
     public void test_precios_categoria(){
         Categoria c = new Categoria("Alfa123", 222, "Equipos de audio y television para el hogar");
         Producto producto = new Producto("test nombre producto 1", 1, 1, "test descripcion producto 1", "XT12345", 1250);

@@ -10,11 +10,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@SpringBootTest
+
 public class ProductoDaoImplementationTest {
     private Map<String, String> especificaciones = new HashMap<>(){{
         put("Bateria", "4500mAh");
@@ -42,4 +46,88 @@ public class ProductoDaoImplementationTest {
         assertFalse(productoDao.getListaProductos().isEmpty());
         assertTrue(productoDao.getListaProductos().contains(p));
     }
+
+    @Test
+    public void test_editar_productoOK() {
+
+        Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
+        Producto p = new Producto("Motorola Edge 40", cat.getId(),20, "Motorola", "Edge", 125000);
+        categoriaDao.guardar(cat);
+        productoDao.guardar(p,cat);
+
+        System.out.println("producto antes de editar: " + p);
+
+        p.setNombre("Microfono HyperX SoloCast");
+        p.setMarca("HyperX");
+        p.setCategoria("Microfonos");
+        p.setModelo("QXTS23");
+        p.setPrecioLista(70000);
+        productoDao.editar(p);
+        System.out.println("producto despues de editar: " + p);
+
+        Producto prodEncontrado = productoDao.getProductosPorId(p.getId());
+
+        assertNotNull(prodEncontrado);
+        assertEquals(p, prodEncontrado);
+    }
+
+    @Test
+    public void test_eliminar_productoOK() {
+
+        Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
+        Producto p = new Producto("Motorola Edge 40", cat.getId(),20, "Motorola", "Edge", 125000);
+        categoriaDao.guardar(cat);
+        productoDao.guardar(p,cat);
+
+        assertTrue(productoDao.eliminar(p));
+        assertNull(productoDao.getProductosPorId(p.getId()));
+
+    }
+
+    @Test
+    public void test_get_producto_por_idOK() {
+
+        Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
+        Producto p = new Producto("Motorola Edge 40", cat.getId(),20, "Motorola", "Edge", 125000);
+        categoriaDao.guardar(cat);
+        productoDao.guardar(p,cat);
+
+        Producto productoEncontrado = productoDao.getProductosPorId(p.getId());
+        assertNotNull(productoDao.getProductosPorId(p.getId()));
+        assertEquals(productoEncontrado, p);
+
+    }
+
+    @Test
+    public void test_get_producto_por_id_notValido() {
+        Categoria cat = new Categoria("test nombre categoria", 1, "test descripcion categoria");
+        Producto p = new Producto("Motorola Edge 40", cat.getId(),1, "Motorola", "Edge", 125000);
+        categoriaDao.guardar(cat);
+        productoDao.guardar(p,cat);
+
+        Producto produdctoNovalido = productoDao.getProductosPorId(3);
+
+        assertNull(produdctoNovalido);
+    }
+
+    @Test
+    public void test_get_producto_por_atributosOK() {
+
+        Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
+        Producto p = new Producto(2,"Celulares", "Motorola Edge 40","descripcion", cat.getId(), "Motorola", "edge",125000,"Smartphone");
+        categoriaDao.guardar(cat);
+        productoDao.guardar(p,cat);
+
+        List<Producto> productoPorAtributos = productoDao.getProductosPorAtributos(p.getTipo(), p.getMarca(), p.getCategoria());
+
+        assertNotNull(productoPorAtributos);
+        assertTrue(productoPorAtributos.contains(p));
+        assertEquals(1, productoPorAtributos.size());
+        assertEquals(productoPorAtributos.get(0).getTipo(), p.getTipo());
+        assertEquals(productoPorAtributos.get(0).getMarca(), p.getMarca());
+        assertEquals(productoPorAtributos.get(0).getCategoria(), p.getCategoria());
+
+    }
+
+
 }

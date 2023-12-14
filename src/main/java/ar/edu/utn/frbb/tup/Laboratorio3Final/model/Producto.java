@@ -195,6 +195,17 @@ public class Producto {
         this.precioLista = precioLista;
         this.tipo= tipo;
     }
+    public Producto (int id, String categoria, String nombre, String descripcion, int categoriaId, String marca, String modelo, double precioLista, String tipo){
+        this.id = id;
+        this.categoria = categoria;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.categoriaId = categoriaId;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.precioLista = precioLista;
+        this.tipo= tipo;
+    }
 
     public Producto(String nombre, String categoria, int categoriaId, int id, String marca, String modelo, String descripcion, Map<String, String> especificaciones, String tipo, double precioLista, double precioContado, double precioOnline, boolean productOnline, double descuentoOnline, List<Producto> productosRelacionados, boolean personalizable, Map<String, List<String>> opcionesPersonalizacion) {
         this.nombre = nombre;

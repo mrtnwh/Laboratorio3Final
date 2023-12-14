@@ -32,10 +32,27 @@ public class ProductoDaoImplementation implements ProductoDao {
         }
     }
 
-    public Producto editar(Producto p) {
-        //TODO: CRUD EDIT
-        return null;
-    }
+    public Producto editar(Producto productoActualizado) {
+        try{
+            for (Producto producto : productos) {
+                if (producto.getId() == productoActualizado.getId()) {
+                    producto.setNombre(productoActualizado.getNombre());
+                    producto.setCategoriaId(productoActualizado.getCategoriaId());
+                    producto.setMarca(productoActualizado.getMarca());
+                    producto.setModelo(productoActualizado.getModelo());
+                    producto.setPrecioLista(productoActualizado.getPrecioLista());
+                }
+                System.out.println("Se editó el producto en memoria correctamente.");
+                return producto;
+
+        }
+        }catch (NoSuchElementException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return productoActualizado;
+        }
+
 
     public boolean eliminar(Producto p) {
         try{
@@ -66,6 +83,7 @@ public class ProductoDaoImplementation implements ProductoDao {
     }
 
     public List<Producto> getProductosPorAtributos(String tipo, String marca, String categoria) {
+        System.out.println("Se encontro el producto por atributos");
         return getListaProductos().stream()
                 .filter(producto -> producto.getTipo().equalsIgnoreCase(tipo))
                 .filter(producto -> producto.getMarca().equalsIgnoreCase(marca))
