@@ -1,13 +1,19 @@
 package ar.edu.utn.frbb.tup.Laboratorio3Final.business.Implementation;
 
 import ar.edu.utn.frbb.tup.Laboratorio3Final.business.CategoriaBusiness;
+import ar.edu.utn.frbb.tup.Laboratorio3Final.business.ProductoBusiness;
 import ar.edu.utn.frbb.tup.Laboratorio3Final.dao.CategoriaDao;
+import ar.edu.utn.frbb.tup.Laboratorio3Final.dao.ProductoDao;
 import ar.edu.utn.frbb.tup.Laboratorio3Final.dto.AltaCategoriaDto;
 import ar.edu.utn.frbb.tup.Laboratorio3Final.model.Categoria;
 import ar.edu.utn.frbb.tup.Laboratorio3Final.model.Producto;
 import ar.edu.utn.frbb.tup.Laboratorio3Final.singletons.CategoriaDaoSingleton;
+import ar.edu.utn.frbb.tup.Laboratorio3Final.singletons.ProductoBusinessImplementationSingleton;
+import ar.edu.utn.frbb.tup.Laboratorio3Final.singletons.ProductoDaoSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -16,11 +22,14 @@ public class CategoriaBusinessImplementation implements CategoriaBusiness {
     Categoria c;
     @Autowired
     CategoriaDao categoriaDao = CategoriaDaoSingleton.getInstance();
-
+    @Autowired
+    ProductoDao productoDao = ProductoDaoSingleton.getInstance();
     public Categoria altaCategoria(AltaCategoriaDto dto) {
         c = new Categoria();
+        c.setId(dto.getId());
         c.setNombre(dto.getNombre());
         c.setDescripcion(dto.getDescripcion());
+        c.setListaProductos(dto.getListaProductos());
         categoriaDao.guardar(c);
         return c;
     }
@@ -28,8 +37,10 @@ public class CategoriaBusinessImplementation implements CategoriaBusiness {
     public Categoria modificarCategoria(AltaCategoriaDto dto) {
         try{
             c = categoriaDao.getCategoriaPorId(dto.getId());
+            c.setId(dto.getId());
             c.setNombre(dto.getNombre());
             c.setDescripcion(dto.getDescripcion());
+            c.setListaProductos(dto.getListaProductos());
         } catch (NoSuchElementException e) {
             System.out.println(""+ e.getMessage());
             return null;
@@ -43,6 +54,14 @@ public class CategoriaBusinessImplementation implements CategoriaBusiness {
         }catch (NoSuchElementException e){
             System.out.println(e.getMessage());
             return false;
+        }
+        if (c.getListaProductos() != null) {
+            Iterator<Producto> iterator = c.getListaProductos().iterator();
+            while (iterator.hasNext()) {
+                Producto producto = iterator.next();
+                iterator.remove();
+                productoDao.eliminar(producto);
+            }
         }
         return categoriaDao.eliminar(c);
     }
@@ -67,7 +86,7 @@ public class CategoriaBusinessImplementation implements CategoriaBusiness {
     }
 
     @Override
-    public List<Producto> getProductosOrdenadosPorPrecioAsc(AltaCategoriaDto dto, String marca) {
+    public List<Producto> getProductosOrdenadosPorPrecioAsc(AltaCategoriaDto dto) {
         Categoria c = categoriaDao.getCategoriaPorId(dto.getId());
         return categoriaDao.getProductosOrdenadosPorPreciosAsc(c);
     }

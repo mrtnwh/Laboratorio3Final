@@ -27,13 +27,14 @@ public class ProductoBusinessImplementation implements ProductoBusiness {
     public Producto altaProducto(AltaProductoDto prodDto, AltaCategoriaDto catDto) {
         Producto p = new Producto();
         p.setNombre(prodDto.getNombre());
-        p.setCategoria(catDto.getNombre());
+        p.setCategoria(prodDto.getCategoria());
         p.setId(prodDto.getId());
-        p.setCategoriaId(catDto.getId());
+        p.setCategoriaId(prodDto.getCategoriaId());
         p.setMarca(prodDto.getMarca());
         p.setModelo(prodDto.getModelo());
+        p.setPrecioLista(prodDto.getPrecioLista());
+        p.setTipo(prodDto.getTipo());
         Categoria c = catDao.getCategoriaPorId(catDto.getId());
-
         productoDao.guardar(p, c);
         return p;
     }

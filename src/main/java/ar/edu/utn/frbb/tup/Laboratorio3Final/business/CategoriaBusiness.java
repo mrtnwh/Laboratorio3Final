@@ -13,7 +13,7 @@ public interface CategoriaBusiness {
     boolean bajaCategoria(AltaCategoriaDto categoriaDto);
     Categoria consultarCategoriaPorId(int id);
     List<Producto> getProductosPorMarca(AltaCategoriaDto dto, String marca);
-    List<Producto> getProductosOrdenadosPorPrecioAsc(AltaCategoriaDto dto, String marca);
+    List<Producto> getProductosOrdenadosPorPrecioAsc(AltaCategoriaDto dto);
     List<Producto> getProductosOrdenadosPorPrecioDesc(AltaCategoriaDto dto);
     List<Producto> getProductosFiltradosPorPrecios(AltaCategoriaDto dto, double precioMin, double precioMax);
 }
