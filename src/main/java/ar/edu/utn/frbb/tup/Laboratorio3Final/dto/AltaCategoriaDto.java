@@ -9,12 +9,16 @@ public class AltaCategoriaDto {
     private int id;
     private String nombre;
     private String descripcion;
-    private List<Producto> listaProductos;
+    private ArrayList<Producto> listaProductos;
 
     public AltaCategoriaDto(int id, String nombre, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
         this.nombre = nombre;
+    }
+
+    public AltaCategoriaDto(int id) {
+        this.id = id;
     }
 
 
@@ -42,11 +46,11 @@ public class AltaCategoriaDto {
         this.descripcion = descripcion;
     }
 
-    public List<Producto> getListaProductos() {
+    public ArrayList<Producto> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(List<Producto> listaProductos) {
+    public void setListaProductos(ArrayList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }
 
@@ -56,7 +60,7 @@ public class AltaCategoriaDto {
         this.descripcion = descripcion;
     }
 
-    public AltaCategoriaDto(int id, String nombre, String descripcion, List<Producto> listaProductos) {
+    public AltaCategoriaDto(int id, String nombre, String descripcion, ArrayList<Producto> listaProductos) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;

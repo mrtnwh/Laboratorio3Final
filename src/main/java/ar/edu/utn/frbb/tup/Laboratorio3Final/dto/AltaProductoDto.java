@@ -26,6 +26,10 @@ public class AltaProductoDto {
     private boolean personalizable = false;
     private Map<String, List<String>> opcionesPersonalizacion;
 
+    public AltaProductoDto(int id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -81,8 +85,6 @@ public class AltaProductoDto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-
 
     public String getTipo() {
         return tipo;
@@ -172,7 +174,8 @@ public class AltaProductoDto {
 
     public AltaProductoDto() {}
 
-    public AltaProductoDto(String nombre, int id, String marca, String modelo, double precioLista) {
+
+    public AltaProductoDto(String nombre, String categoria, int categoriaId ,int id, String marca, String modelo, double precioLista, String tipo) {
         this.nombre = nombre;
         this.id = id;
         this.marca = marca;
@@ -181,6 +184,7 @@ public class AltaProductoDto {
         this.precioContado = getPrecioContado();
         this.productOnline = false;
         this.personalizable = false;
+        this.tipo = tipo;
     }
 
     public AltaProductoDto(int id, String nombre, String descripcion, int categoriaId, String marca, String modelo, double precioLista, String tipo, Map<String, String> especificaciones){
