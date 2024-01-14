@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
@@ -41,6 +42,7 @@ public class ProductoDaoImplementation implements ProductoDao {
                     producto.setMarca(productoActualizado.getMarca());
                     producto.setModelo(productoActualizado.getModelo());
                     producto.setPrecioLista(productoActualizado.getPrecioLista());
+                    producto.setTipo(productoActualizado.getTipo());
                 }
                 System.out.println("Se editó el producto en memoria correctamente.");
                 return producto;
@@ -78,12 +80,12 @@ public class ProductoDaoImplementation implements ProductoDao {
                 return producto;
             }
         }
-        System.out.println("No se encontro el producto :(");
+        System.out.println("No se encontro el producto.");
         return null;
     }
 
     public List<Producto> getProductosPorAtributos(String tipo, String marca, String categoria) {
-        System.out.println("Se encontro el producto por atributos");
+        System.out.println("tipo "+ tipo + " marca " + marca + " categoria " + categoria);
         return getListaProductos().stream()
                 .filter(producto -> producto.getTipo().equalsIgnoreCase(tipo))
                 .filter(producto -> producto.getMarca().equalsIgnoreCase(marca))

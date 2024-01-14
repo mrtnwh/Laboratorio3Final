@@ -5,10 +5,7 @@ import ar.edu.utn.frbb.tup.Laboratorio3Final.model.Producto;
 import ar.edu.utn.frbb.tup.Laboratorio3Final.dao.CategoriaDao;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -17,6 +14,12 @@ public class CategoriaDaoImplementation implements CategoriaDao {
     public List<Categoria> categorias = new ArrayList<>();
 
     public Categoria guardar(Categoria c) {
+        if (getCategoriaPorId(c.getId()) != null)
+        {
+            System.out.println("Ya existe una categoria con ese id, no se puede crear otra.");
+            return null;
+        }
+        else
         categorias.add(c);
         System.out.println("Se guardó la categoria en memoria correctamente.");
         return c;
