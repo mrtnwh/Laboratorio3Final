@@ -14,11 +14,22 @@ public class CategoriaDaoImplementation implements CategoriaDao {
     public List<Categoria> categorias = new ArrayList<>();
 
     public Categoria guardar(Categoria c) {
-        if (getCategoriaPorId(c.getId()) != null)throw new RuntimeException("Ya existe una categoria con ese id, no se puede crear otra.");
+        if (categoriaYaExiste(c)) {
+            throw new RuntimeException("Ya existe una categoria con ese id, no se puede crear otra.");
+        }
         else
         categorias.add(c);
         System.out.println("Se guardó la categoria en memoria correctamente.");
         return c;
+    }
+
+    private boolean categoriaYaExiste(Categoria categoria) {
+        for (Categoria c : categorias) {
+            if (c.getId() == categoria.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Categoria editar(Categoria categoriaActualizado) {
