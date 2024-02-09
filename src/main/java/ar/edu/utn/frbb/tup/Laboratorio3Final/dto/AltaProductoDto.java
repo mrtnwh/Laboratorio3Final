@@ -13,7 +13,6 @@ public class AltaProductoDto {
     private String marca;
     private String modelo;
     private String descripcion;
-
     private Map<String, String> especificaciones;
     private String tipo;
     private double precioLista;
