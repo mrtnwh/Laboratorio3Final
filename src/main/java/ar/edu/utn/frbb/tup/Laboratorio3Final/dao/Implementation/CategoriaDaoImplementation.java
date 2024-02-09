@@ -14,11 +14,7 @@ public class CategoriaDaoImplementation implements CategoriaDao {
     public List<Categoria> categorias = new ArrayList<>();
 
     public Categoria guardar(Categoria c) {
-        if (getCategoriaPorId(c.getId()) != null)
-        {
-            System.out.println("Ya existe una categoria con ese id, no se puede crear otra.");
-            return null;
-        }
+        if (getCategoriaPorId(c.getId()) != null)throw new RuntimeException("Ya existe una categoria con ese id, no se puede crear otra.");
         else
         categorias.add(c);
         System.out.println("Se guardó la categoria en memoria correctamente.");

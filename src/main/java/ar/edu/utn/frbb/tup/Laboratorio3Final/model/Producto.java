@@ -21,7 +21,6 @@ public class Producto {
     private List<Producto> productosRelacionados;
     private boolean personalizable = false;
     private Map<String, List<String>> opcionesPersonalizacion;
-
     private String tipo;
 
     public String getNombre() {
