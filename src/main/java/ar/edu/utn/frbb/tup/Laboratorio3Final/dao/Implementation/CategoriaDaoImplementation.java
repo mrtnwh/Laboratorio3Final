@@ -65,6 +65,7 @@ public class CategoriaDaoImplementation implements CategoriaDao {
             for (Categoria categoria : categorias){
                 if (categoria.getId() == (id)){
                     categoriaEncontrada = categoria;
+                    System.out.println("La categoría se econtroró correctamente.");
                     break;
                 }
             }
@@ -98,7 +99,6 @@ public class CategoriaDaoImplementation implements CategoriaDao {
                 .stream()
                 .sorted(Comparator.comparingDouble(Producto::getPrecioLista).reversed())
                 .collect(Collectors.toList());
-
     }
 
     public List<Producto> getProductosPorMarca(Categoria c, String marca) {

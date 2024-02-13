@@ -57,7 +57,7 @@ public class CategoriaDaoImplementationTest {
         Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
         categoriaDao.guardar(cat);
 
-        Categoria categoriaEncontrada = categoriaDao.getCategoriaPorId(cat.getId());
+        Categoria categoriaEncontrada = categoriaDao.getCategoriaPorId(22);
 
         assertNotNull(categoriaEncontrada);
         assertEquals(cat, categoriaEncontrada);
@@ -166,16 +166,13 @@ public class CategoriaDaoImplementationTest {
 
     @Test
     public void test_guardar_categoria_not_valida(){
-        // Arrange: Simulamos una categoría existente con un ID determinado
-        Categoria c = new Categoria(); // Supongamos que esta es tu implementación de DAO
         Categoria categoriaExistente = new Categoria("Categoria existente", 1, "asdasdasd");
         categoriaDao.guardar(categoriaExistente);
 
-        // Act y Assert: Intentamos guardar otra categoría con el mismo ID
         Categoria categoriaNueva = new Categoria("Nueva categoría", 1,"asda");
         RuntimeException exception = assertThrows(RuntimeException.class, () -> categoriaDao.guardar(categoriaNueva));
+        System.out.println(exception.getMessage());
 
-        // Verificamos que se lance la excepción esperada
         String expectedMessage = "Ya existe una categoria con ese id, no se puede crear otra.";
         String actualMessage = exception.getMessage();
         assert(actualMessage.contains(expectedMessage));
