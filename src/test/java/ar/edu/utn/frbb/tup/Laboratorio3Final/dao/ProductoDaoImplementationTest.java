@@ -1,7 +1,4 @@
 package ar.edu.utn.frbb.tup.Laboratorio3Final.dao;
-
-
-
 import ar.edu.utn.frbb.tup.Laboratorio3Final.model.Categoria;
 import ar.edu.utn.frbb.tup.Laboratorio3Final.model.Producto;
 import ar.edu.utn.frbb.tup.Laboratorio3Final.singletons.CategoriaDaoSingleton;
@@ -30,7 +27,6 @@ public class ProductoDaoImplementationTest {
 
     @Test
     public void test_guardar_categoria_y_productoOK() {
-
         Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
         Producto p = new Producto("Motorola Edge 20 Pro", "Celulares y SmartPhones", cat.getId(), 20, "Motorola", "Edge", "es un celular de gama alta que busca diferenciarse de la competencia por su excelente sistema de cámaras y su altísima tasa de respuesta táctil. Para diferenciarse aún más, cuenta con una versión con cuero vegano.", especificaciones, "Celular",2500, 2000, 2000, false, 0, null, false, null);
 
@@ -46,7 +42,6 @@ public class ProductoDaoImplementationTest {
 
     @Test
     public void test_editar_productoOK() {
-
         Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
         Producto p = new Producto("Motorola Edge 40", cat.getId(),20, "Motorola", "Edge", 125000);
         categoriaDao.guardar(cat);
@@ -70,7 +65,6 @@ public class ProductoDaoImplementationTest {
 
     @Test
     public void test_eliminar_productoOK() {
-
         Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
         Producto p = new Producto("Motorola Edge 40", cat.getId(),20, "Motorola", "Edge", 125000);
         categoriaDao.guardar(cat);
@@ -83,7 +77,6 @@ public class ProductoDaoImplementationTest {
 
     @Test
     public void test_get_producto_por_idOK() {
-
         Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
         Producto p = new Producto("Motorola Edge 40", cat.getId(),20, "Motorola", "Edge", 125000);
         categoriaDao.guardar(cat);
@@ -109,7 +102,6 @@ public class ProductoDaoImplementationTest {
 
     @Test
     public void test_get_producto_por_atributosOK() {
-
         Categoria cat = new Categoria("test nombre categoria", 22, "test descripcion categoria");
         Producto p = new Producto(2,"Celulares", "Motorola Edge 40","descripcion", cat.getId(), "Motorola", "edge",125000,"Smartphone");
         categoriaDao.guardar(cat);
@@ -120,11 +112,10 @@ public class ProductoDaoImplementationTest {
         assertNotNull(productoPorAtributos);
         assertTrue(productoPorAtributos.contains(p));
         assertEquals(1, productoPorAtributos.size());
+        //Afirmar si las categorias son iguales
         assertEquals(productoPorAtributos.get(0).getTipo(), p.getTipo());
         assertEquals(productoPorAtributos.get(0).getMarca(), p.getMarca());
         assertEquals(productoPorAtributos.get(0).getCategoria(), p.getCategoria());
-
     }
-
 
 }
